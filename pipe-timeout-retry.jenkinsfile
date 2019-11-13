@@ -1,0 +1,24 @@
+import org.jenkinsci.plugins.workflow.steps.FlowInterruptedException
+
+node {
+    parameters {
+        string(name: 'date_c', defaultValue: 'nodate', description: 'force date')
+    }
+    stage('STAGE 0') {
+        waitUntil {
+            echo "setup"
+            true
+        }
+    }
+    stage('STAGE 1') {
+        retry(3) {
+            try {
+                timeout(time:10, unit: 'SECONDS') {
+                    build (job:'dummy-job')
+                }
+            } catch (FlowInterruptedException e) {
+                error "Timeout... retry"
+            }
+        }
+    }
+}
