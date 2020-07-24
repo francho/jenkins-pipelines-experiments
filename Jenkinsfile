@@ -13,7 +13,7 @@ pipeline {
         }
 
         stage('Print Env') {
-            teps {
+            steps {
                 sh 'printenv'
             }
         }
