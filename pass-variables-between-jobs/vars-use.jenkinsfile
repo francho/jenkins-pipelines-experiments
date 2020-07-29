@@ -1,8 +1,5 @@
 node {
     agent: any
-    triggers {
-        cron('H 1/* 0 0 1-5')
-    }
     stages {
         stage('Build') {
             def jobResult = build job: 'vars-setter', parameters: [string(name: 'MY_ENVIRONMENT', value: 'prod')]
