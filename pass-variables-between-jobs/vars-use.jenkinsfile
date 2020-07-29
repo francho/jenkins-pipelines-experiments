@@ -5,9 +5,7 @@ node {
     }
     stages {
         stage('Build') {
-            def jobResult = build(job: "vars-setter", parameters: [
-                string(name: 'MY_ENVIRONMENT', value: 'prod')
-            ])
+            def jobResult = build job: 'vars-setter', parameters: [string(name: 'MY_ENVIRONMENT', value: 'prod')]
             def configVars = jobResult.getBuildVariables()
             echo configVars.FRANCHO
         }
