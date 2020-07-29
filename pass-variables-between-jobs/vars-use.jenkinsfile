@@ -2,14 +2,19 @@ pipeline {
     agent any
 
     triggers {
-        cron('H 1/* 0 0 1-5')
+        cron('H */1 * * 1-5')
     }
 
     stages {
         stage('Build') {
-            def jobResult = build job: 'vars-setter', parameters: [string(name: 'MY_ENVIRONMENT', value: 'prod')]
-            def configVars = jobResult.getBuildVariables()
-            echo configVars.FRANCHO
+            steps {
+                script {
+                    def jobResult = build(job: 'vars-setter', parameters: [string(name: 'MY_ENVIRONMENT', value: 'prod')])
+                    def configVars = jobResult.getBuildVariables()
+                    echo "var received"
+                    echo " FRANCHO=${configVars.FRANCHO}"
+                }
+            }   
         }
     }
 }
