@@ -1,0 +1,13 @@
+node {
+    agent: any
+    triggers {
+        cron('H 1/* 0 0 1-5')
+    }
+    stages {
+        stage('Build') {
+            def jobResult = build(job: "vars-setter")
+            def configVars = jobResult.getBuildVariables()
+            echo configVars.FRANCHO
+        }
+    }
+}

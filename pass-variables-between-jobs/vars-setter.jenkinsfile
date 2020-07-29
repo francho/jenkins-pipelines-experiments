@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(choices: 'dev\nprod\n', description: 'Select env to build', name: 'MY_ENVIRONMENT')
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                script {
+                    env.FRANCHO = "Hi dude (env=${MY_ENVIRONMENT})"
+                }
+            }
+        }
+    }
+}
